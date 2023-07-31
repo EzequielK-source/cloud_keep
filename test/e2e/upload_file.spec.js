@@ -1,5 +1,5 @@
 const request = require("supertest");
-const app = require("../src/app");
+const app = require("../../src/app");
 describe("Upload file e2e test", () => {
   /**
    * Test end-to-end scenario for the "upload file" feature
@@ -20,7 +20,6 @@ describe("Upload file e2e test", () => {
      * the template upload_file
      */
     const response = await request(app).get(ENDPOINT);
-
     expect(response.status).toBe(200);
   });
 });
