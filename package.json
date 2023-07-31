@@ -1,0 +1,9 @@
+{
+  "name": "cloud_keep",
+  "version": "0.0.1",
+  "description": "Local storage service for saving all files on a specific computer/server on the network",
+  "main": "index.js",
+  "repository": "https://github.com/EzequielK-source/cloud_keep.git",
+  "author": "EzequielK-source <programacionezequielk@gmail.com>",
+  "license": "MIT"
+}
