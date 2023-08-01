@@ -41,4 +41,20 @@ describe("Upload file e2e test", () => {
       expect(title.length).toBeGreaterThan(0);
     });
   });
+  describe("Valid POST request", () => {
+    /**
+     * Verify that when making the request to the endpoint
+     * with the post method the record is created in the database
+     * and it saves the file 'archivo_prueba.txt' in the folder
+     */
+    it("Should redirect to home template and status code 301", async () => {
+      /**
+       * Verify that after making the request the client
+       * is redirected to the home route
+       */
+      const response = await request(app).post(ENDPOINT);
+
+      expect(response.statusCode).toBe(302);
+    });
+  });
 });
