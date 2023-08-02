@@ -3,7 +3,7 @@ const fs = require('fs/promises');
 const request = require('supertest');
 const cheerio = require('cheerio');
 const app = require('../../src/app');
-const archives = require('../../src/models/archive.schema');
+const file = require('../../src/models/file.schema');
 
 describe('Upload file e2e test', () => {
   /**
@@ -54,9 +54,9 @@ describe('Upload file e2e test', () => {
      */
     afterEach(async () => {
       /**
-       * Delete all archives record from database
+       * Delete all files record from database
        */
-      await archives.deleteMany({});
+      await file.deleteMany({});
     });
     const filePath = path.join(`${__dirname}/../assets`, 'archivo_prueba.txt');
     const expectedStoragedFile = path.join(`${__dirname}/../../storage_vault`, 'archivo_prueba.txt');
@@ -102,7 +102,7 @@ describe('Upload file e2e test', () => {
         .type('form');
 
       expect(response.statusCode).toBe(302);
-      const archivos = await archives.find();
+      const archivos = await file.find();
       return expect(archivos.length).toBeGreaterThan(0);
     });
   });
