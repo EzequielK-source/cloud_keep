@@ -60,6 +60,7 @@ describe('Upload file e2e test', () => {
       await deleteAllFiles();
     });
     const filePath = path.join(`${__dirname}/../assets`, 'archivo_prueba.txt');
+    const filePath2 = path.join(`${__dirname}/../assets`, 'archivo_prueba2.txt');
     const expectedStoragedFile = path.join(`${__dirname}/../../storage_vault`, 'archivo_prueba.txt');
     it('Should redirect to home endpoint and status code 302', async () => {
       /**
@@ -69,6 +70,7 @@ describe('Upload file e2e test', () => {
       const response = await request(app)
         .post(ENDPOINT)
         .attach('archives', filePath)
+        .attach('archives', filePath2)
         .type('form');
       return expect(response.statusCode).toBe(302);
     });
@@ -87,6 +89,7 @@ describe('Upload file e2e test', () => {
       const response = await request(app)
         .post(ENDPOINT)
         .attach('archives', filePath)
+        .attach('archives', filePath2)
         .type('form');
 
       expect(response.statusCode).toBe(302);
@@ -100,6 +103,7 @@ describe('Upload file e2e test', () => {
       const response = await request(app)
         .post(ENDPOINT)
         .attach('archives', filePath)
+        .attach('archives', filePath2)
         .type('form');
 
       expect(response.statusCode).toBe(302);
