@@ -1,7 +1,7 @@
 const path = require('path');
 const router = require('express').Router();
-const { saveFiles } = require('../controller/files.controller');
-const File = require('../models/file.schema');
+const { saveFiles } = require('./controller');
+const File = require('./schema');
 
 const storageVault = path.join(__dirname, '../../storage_vault');
 // Upload route

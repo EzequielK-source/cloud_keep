@@ -1,5 +1,5 @@
 const path = require('path');
-const File = require('../models/file.schema');
+const File = require('./schema');
 
 module.exports = {
   saveFiles: async ({ archives }, pathToStorage) => {
