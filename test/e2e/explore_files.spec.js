@@ -1,6 +1,7 @@
 const request = require('supertest');
 const cheerio = require('cheerio');
 const app = require('../../src/app');
+const { deleteAllFiles, createNfakeFiles } = require('../utils');
 
 describe('Explore files e2e test', () => {
   /**
@@ -20,12 +21,14 @@ describe('Explore files e2e test', () => {
      * Verify that when making a request to the /files/explorer
      * endpoint with the GET method, the 'explore_files' template is rendered
      * and the following components are rendered:
-     *  1. Explorer-list
-     *  2. 10 explorer-item
+     *  1. files-list-container
+     *  2. 10 files-list-item
      */
     let response;
     let $;
     beforeAll(async () => {
+      await deleteAllFiles();
+      await createNfakeFiles(10);
       response = await request(app).get(ENDPOINT);
       $ = cheerio.load(response.text);
     });
