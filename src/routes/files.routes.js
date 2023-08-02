@@ -1,6 +1,8 @@
+const path = require('path');
 const router = require('express').Router();
 const { saveFiles } = require('../controller/files.controller');
 
+const storageVault = path.join(__dirname, '../../storage_vault');
 router
   .route('/upload')
   .get((req, res) => res.render('upload_file'))
