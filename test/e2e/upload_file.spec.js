@@ -50,6 +50,7 @@ describe('Upload file e2e test', () => {
      * and it saves the file 'archivo_prueba.txt' in the folder
      */
     const filePath = path.join(`${__dirname}/../assets`, 'archivo_prueba.txt');
+    const expectedStoragedFile = path.join(`${__dirname}/../../storage_vault`, 'archivo_prueba.txt');
     it('Should redirect to home endpoint and status code 302', async () => {
       /**
        * Verify that after making the request the client
