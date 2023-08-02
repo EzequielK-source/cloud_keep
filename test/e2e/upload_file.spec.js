@@ -3,6 +3,7 @@ const fs = require('fs/promises');
 const request = require('supertest');
 const cheerio = require('cheerio');
 const app = require('../../src/app');
+const archives = require('../../src/models/archive.schema');
 
 describe('Upload file e2e test', () => {
   /**
@@ -13,7 +14,8 @@ describe('Upload file e2e test', () => {
    *  1. Should render upload_file template
    *  2. Valid POST request
    *    2.a should redirect to home template
-   *    2.b should persist file record
+   *    2.b should record file
+   *    2.c should persist file in db
    *
    * Tags {upload_file, e2e}
    */
@@ -50,6 +52,12 @@ describe('Upload file e2e test', () => {
      * with the post method the record is created in the database
      * and it saves the file 'archivo_prueba.txt' in the folder
      */
+    afterEach(async () => {
+      /**
+       * Delete all archives record from database
+       */
+      await archives.deleteMany({});
+    });
     const filePath = path.join(`${__dirname}/../assets`, 'archivo_prueba.txt');
     const expectedStoragedFile = path.join(`${__dirname}/../../storage_vault`, 'archivo_prueba.txt');
     it('Should redirect to home endpoint and status code 302', async () => {
@@ -95,7 +103,7 @@ describe('Upload file e2e test', () => {
 
       expect(response.statusCode).toBe(302);
       const archivos = await archives.find();
-      expect(archivos.length).toBeGreaterThan(0);
+      return expect(archivos.length).toBeGreaterThan(0);
     });
   });
 });
