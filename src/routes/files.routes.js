@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const { saveFiles } = require('../controller/files.controller');
 
 router
   .route('/upload')
@@ -12,7 +13,9 @@ router
       return res.statusCode(400);
     }
     await saveFiles(req.files);
-    return res.redirect('/home');
+    return res.redirect('/');
   });
+router.route('/')
+  .get((req, res) => res.send('home'));
 
 module.exports = router;
