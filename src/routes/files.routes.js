@@ -11,7 +11,7 @@ router
      * Record and persist the sended files and
      * redirect to files view
      */
-    if (!req.files) {
+    if (!req.files || Object.keys(req.files).length === 0) {
       return res.statusCode(400);
     }
     await saveFiles(req.files);
