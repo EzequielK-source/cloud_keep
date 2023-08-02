@@ -11,3 +11,4 @@ dist/
 api-docs/
 coverage/
 config.js
+storage_vault/*
