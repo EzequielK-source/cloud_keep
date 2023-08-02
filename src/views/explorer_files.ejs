@@ -5,7 +5,11 @@
   </head>
   <body>
     <main>
-      <div role="files-list-container"></div>
+      <div role="files-list-container">
+        <% for (let file in files) {%>
+          <div role="files-list-item"></div>
+        <% }%>
+      </div>
     </main>
   </body>
 </html>

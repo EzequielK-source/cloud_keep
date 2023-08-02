@@ -28,8 +28,10 @@ router.get('/explorer', async (req, res) => {
   /**
    * Renders the 'explorer_files' template with all the files inside the user's folder
    */
-  const data = {};
-  return res.render('explorer_files');
+  const data = {
+    files: await File.find({}),
+  };
+  return res.render('explorer_files', data);
 });
 // lists files route
 router.route('/')
