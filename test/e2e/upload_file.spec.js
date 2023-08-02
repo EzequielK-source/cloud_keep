@@ -61,5 +61,25 @@ describe('Upload file e2e test', () => {
         .type('form');
       return expect(response.statusCode).toBe(302);
     });
+    it('Should record the file archivo_prueba.txt in storage_vaul dir', async () => {
+      /**
+       * Verifies that after making the request to the endpoint
+       * is recorded the file 'archivo_prueba.txt' in the storage_folder
+       *
+       * Scenario
+       * 1. make the request
+       * 2. the response statusCode should be 302
+       * 3. Verifie if the file 'archivo_prueba.txt' can be accesed in the folder
+       * storage_vault
+       */
+
+      const response = await request(app)
+        .post(ENDPOINT)
+        .attach('archives', filePath)
+        .type('form');
+
+      expect(response.statusCode).toBe(302);
+      await fs.access(expectedStoragedFile);
+    });
   });
 });
