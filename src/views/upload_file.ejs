@@ -6,7 +6,10 @@
   <body>
     <main>
       <h1>Seleccione el archivo a subir</h1>
-      <input type="file" name="" id="" />
+      <form action="/files/upload" method="post" enctype="multipart/form-data">
+        <input type="file" name="archives" multiple/>
+        <button type="submit">Enviar</button>
+      </form>
     </main>
   </body>
 </html>
