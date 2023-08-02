@@ -9,8 +9,8 @@ describe('Explore files e2e test', () => {
    * This test verifies the correct functionality of the
    * use case "explore files" following the next test cases:
    *  1. Should render explore_files template
-   *    1.a Should render explorer-list
-   *    1.b Should render 10 explorer-item
+   *    1.a Should render files-list-container
+   *    1.b Should render 10 files-list-item
    *
    * Tags {explore_files, e2e}
    */
@@ -29,8 +29,12 @@ describe('Explore files e2e test', () => {
       response = await request(app).get(ENDPOINT);
       $ = cheerio.load(response.text);
     });
-    it('Should have status 200', async () => {
+    it('Should have status 200', () => {
       expect(response.statusCode).toBe(200);
+    });
+    it('Should render files-list-container', () => {
+      const roleContainer = $('[role="files-list-container"]');
+      expect(roleContainer.length).toBeGreaterThan(0);
     });
   });
 });
