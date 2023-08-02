@@ -39,5 +39,9 @@ describe('Explore files e2e test', () => {
       const roleContainer = $('[role="files-list-container"]');
       expect(roleContainer.length).toBeGreaterThan(0);
     });
+    it('Shoul render 10 files-list-item', () => {
+      const roleFilesListItem = $('[role="files-list-item"]');
+      expect(roleFilesListItem.length).toBe(10);
+    });
   });
 });
