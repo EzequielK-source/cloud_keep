@@ -1,4 +1,5 @@
 const path = require('path');
+const fs = require('fs/promises');
 const request = require('supertest');
 const cheerio = require('cheerio');
 const app = require('../../src/app');
@@ -58,7 +59,7 @@ describe('Upload file e2e test', () => {
        */
       const response = await request(app)
         .post(ENDPOINT)
-        .attach('archivos', filePath)
+        .attach('archives', filePath)
         .type('form');
       return expect(response.statusCode).toBe(302);
     });
