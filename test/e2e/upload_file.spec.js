@@ -83,5 +83,19 @@ describe('Upload file e2e test', () => {
       expect(response.statusCode).toBe(302);
       await fs.access(expectedStoragedFile);
     });
+    it('Should persist the file in database', async () => {
+      /**
+       *  Verify that after making the request to the endpoint,
+       * the file and the path where it is persisted in the database
+       */
+      const response = await request(app)
+        .post(ENDPOINT)
+        .attach('archives', filePath)
+        .type('form');
+
+      expect(response.statusCode).toBe(302);
+      const archivos = await archives.find();
+      expect(archivos.length).toBeGreaterThan(0);
+    });
   });
 });
