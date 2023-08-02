@@ -4,6 +4,7 @@ const request = require('supertest');
 const cheerio = require('cheerio');
 const app = require('../../src/app');
 const file = require('../../src/models/file.schema');
+const { deleteAllFiles } = require('../utils');
 
 describe('Upload file e2e test', () => {
   /**
@@ -56,7 +57,7 @@ describe('Upload file e2e test', () => {
       /**
        * Delete all files record from database
        */
-      await file.deleteMany({});
+      await deleteAllFiles();
     });
     const filePath = path.join(`${__dirname}/../assets`, 'archivo_prueba.txt');
     const expectedStoragedFile = path.join(`${__dirname}/../../storage_vault`, 'archivo_prueba.txt');
