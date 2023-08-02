@@ -1,4 +1,4 @@
-const File = require('../src/models/file.schema');
+const File = require('../src/modules/files/schema');
 
 const utils = {};
 utils.createFakeFile = async (fakePath, index) => File.create({

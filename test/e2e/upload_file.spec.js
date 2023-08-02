@@ -3,7 +3,7 @@ const fs = require('fs/promises');
 const request = require('supertest');
 const cheerio = require('cheerio');
 const app = require('../../src/app');
-const file = require('../../src/models/file.schema');
+const file = require('../../src/modules/files/schema');
 const { deleteAllFiles } = require('../utils');
 
 describe('Upload file e2e test', () => {
