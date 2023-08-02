@@ -8,7 +8,12 @@ module.exports = {
      * @param archives - The file list
      * @return void
      */
-    const storagePath = path.join(pathToStorage, archives.name);
-    await archives.mv(storagePath);
+    const promises = [];
+    archives.forEach((archive) => {
+      const storagePath = path.join(pathToStorage, archive.name);
+      promises.push(archive.mv(storagePath));
+      }));
+    });
+    await Promise.all(promises);
   },
 };
