@@ -4,6 +4,7 @@ const { saveFiles } = require('../controller/files.controller');
 const File = require('../models/file.schema');
 
 const storageVault = path.join(__dirname, '../../storage_vault');
+// Upload route
 router
   .route('/upload')
   .get((req, res) => res.render('upload_file'))
@@ -22,6 +23,15 @@ router
     });
     return res.redirect('/');
   });
+
+router.get('/explorer', async (req, res) => {
+  /**
+   * Renders the 'explorer_files' template with all the files inside the user's folder
+   */
+  const data = {};
+  return res.render('explorer_files');
+});
+// lists files route
 router.route('/')
   .get((req, res) => res.send('home'));
 
