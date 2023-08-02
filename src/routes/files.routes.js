@@ -14,13 +14,9 @@ router
      * redirect to files view
      */
     if (!req.files || Object.keys(req.files).length === 0) {
-      return res.statusCode(400);
+      return res.redirect('/upload');
     }
     await saveFiles(req.files, storageVault);
-    await File.create({
-      absolutePath: storageVault,
-      device: 'default',
-    });
     return res.redirect('/');
   });
 
@@ -29,7 +25,7 @@ router.get('/explorer', async (req, res) => {
    * Renders the 'explorer_files' template with all the files inside the user's folder
    */
   const data = {
-    files: await File.find({}),
+    files: await File.find(),
   };
   return res.render('explorer_files', data);
 });
