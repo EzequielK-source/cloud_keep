@@ -7,16 +7,30 @@
     <header>
       <%- include('./partials/navbar.ejs', {selected: "explorer"} ); %>
     </header>
-    <main>
-      <div role="files-list-container">
-        <% files.forEach((file) => { %>
-          <div role="files-list-item">
-            <%= file.absolutePath %>
-            <%= file.device %>
-            
+    <main class="container-md">
+      <section class="flex flex-col items-center">
+        <% if (files.length === 0) { %>
+          <p>No tienes ningún archivo</p>
+        <% } else { %>
+          <div class="shadow-xl mb-4" role="files-list-container">
+            <% files.forEach((file) => { %>
+              <article class="shadow-md hover:bg-slate-300 transition duration-400" role="files-list-item"> 
+                <p>
+                  <strong>Path: </strong><%= file.absolutePath %>
+                </p>
+                <p>
+                  <strong>Device: </strong><span><%= file.device %></span>
+                </p>
+              </article>
+            <% }); %>
           </div>
-        <% });%>
-      </div>
+        <% } %>
+        <a class="
+        px-4 py-2 m-4 border border-purple-600 rounded-md 
+        hover:text-white hover:border-white hover:bg-purple-600
+        mt-2 text-right"
+        href="/files/upload">Subir archivo</a>
+      </section>
     </main>
   </body>
 </html>
