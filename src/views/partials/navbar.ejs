@@ -1,22 +1,4 @@
 <style>
-  .navbar {
-    display: flex;
-    border-radius: 0.5rem;
-    box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
-  }
-  .navbar-item {
-    padding: 14px;
-    margin: 1rem;
-    border-radius: 0.2rem;
-    border: 2px solid #751fff;
-  }
-  .navbar-item:hover {
-    color: white;
-    border-color: white;
-    background-color: #751fff;
-    transition: all 0.5s;
-  }
-
   .selected {
     color: white;
     border-color: white;
@@ -24,7 +6,11 @@
   }
 </style>
 
-<nav class="navbar">
-  <a class="navbar-item <% if (selected === 'home') { %>selected<% } %>" href="/">Home</a>
-  <a class="navbar-item <% if (selected === 'explorer') { %>selected<% } %>" href="/files/explorer">Explorer</a>
+<nav class="flex md:h-24  rounded-lg shadow-md">
+  <a class="flex md:w-52 md:text-2xl items-center justify-center px-4 py-2 m-4 border border-purple-600 rounded-md 
+  hover:text-white hover:border-white hover:bg-purple-600  
+    <% if (selected === 'home') { %>selected<% } %>" href="/">Home</a>
+  <a class="flex md:w-52 md:text-2xl items-center justify-center px-4 py-2 m-4 border border-purple-600 rounded-md 
+  hover:text-white hover:border-white hover:bg-purple-600 
+    <% if (selected === 'explorer') { %>selected<% } %>" href="/files/explorer">Explorer</a>
 </nav>
