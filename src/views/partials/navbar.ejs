@@ -1,0 +1,30 @@
+<style>
+  .navbar {
+    display: flex;
+    border-radius: 0.5rem;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
+  }
+  .navbar-item {
+    padding: 14px;
+    margin: 1rem;
+    border-radius: 0.2rem;
+    border: 2px solid #751fff;
+  }
+  .navbar-item:hover {
+    color: white;
+    border-color: white;
+    background-color: #751fff;
+    transition: all 0.5s;
+  }
+
+  .selected {
+    color: white;
+    border-color: white;
+    background-color: #751fff;
+  }
+</style>
+
+<nav class="navbar">
+  <a class="navbar-item <% if (selected === 'home') { %>selected<% } %>" href="/">Home</a>
+  <a class="navbar-item <% if (selected === 'explorer') { %>selected<% } %>" href="/files/explorer">Explorer</a>
+</nav>

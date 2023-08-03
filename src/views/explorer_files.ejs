@@ -4,11 +4,18 @@
     <%- include('./partials/head.ejs'); %>
   </head>
   <body>
+    <header>
+      <%- include('./partials/navbar.ejs', {selected: "explorer"} ); %>
+    </header>
     <main>
       <div role="files-list-container">
-        <% for (let file in files) {%>
-          <div role="files-list-item"></div>
-        <% }%>
+        <% files.forEach((file) => { %>
+          <div role="files-list-item">
+            <%= file.absolutePath %>
+            <%= file.device %>
+            
+          </div>
+        <% });%>
       </div>
     </main>
   </body>

@@ -4,6 +4,9 @@
     <%- include('./partials/head.ejs'); %>
   </head>
   <body>
+    <header>
+      <%- include('./partials/navbar.ejs'); %>
+    </header>
     <main>
       <h1>Seleccione el archivo a subir</h1>
       <form action="/files/upload" method="post" enctype="multipart/form-data">
