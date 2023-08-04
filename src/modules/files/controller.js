@@ -20,4 +20,18 @@ module.exports = {
     });
     await Promise.all(promises);
   },
+  saveFile: async ({ archives }, pathToStorage) => {
+    /**
+     * Save one file passed by parameter in the folder assigned as storage_vault
+     * and persist it in databas
+     * @param archives - The archive to save and persist
+     * @return void
+     */
+    const storagePath = path.join(pathToStorage, archives.name);
+    await archives.mv(storagePath);
+    await File.create({
+      absolutePath: storagePath,
+      device: 'default',
+    });
+  },
 };

@@ -1,22 +1,25 @@
 const path = require('path');
 const router = require('express').Router();
-const { saveFiles } = require('./controller');
+const { saveFiles, saveFile } = require('./controller');
 const File = require('./schema');
 
 const storageVault = path.join(__dirname, '../../../storage_vault');
 // Upload route
 router
   .route('/upload')
-  .get((req, res) => res.render('upload_file'))
   .post(async (req, res) => {
     /**
      * Record and persist the sended files and
      * redirect to files view
      */
-    if (!req.files || Object.keys(req.files).length === 0) {
-      return res.redirect('/upload');
+    if (!req.files || req.files.length < 1) {
+      return res.redirect('/explorer');
     }
-    await saveFiles(req.files, storageVault);
+    if ('length' in req.files.archives) {
+      await saveFiles(req.files, storageVault);
+    } else {
+      await saveFile(req.files, storageVault);
+    }
     return res.redirect('/');
   });
 
