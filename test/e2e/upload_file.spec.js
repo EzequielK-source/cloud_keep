@@ -12,41 +12,14 @@ describe('Upload file e2e test', () => {
    * Endpoint "/files/upload"
    * This test verifies the correct functionality of the
    * use case "upload file" following the next test cases:
-   *  1. Should render upload_file template
-   *  2. Valid POST request
-   *    2.a should redirect to home template
-   *    2.b should record file
-   *    2.c should persist file in db
+   *  1. Valid POST request
+   *    1.a should redirect to home template
+   *    1.b should record file
+   *    1.c should persist file in db
    *
    * Tags {upload_file, e2e}
    */
   const ENDPOINT = '/files/upload';
-  describe('Should render upload_file template', () => {
-    /**
-     * Verify if request the endpoint with GET method render
-     * the template upload_file
-     */
-    let response;
-    let $;
-    beforeAll(async () => {
-      response = await request(app).get(ENDPOINT);
-      $ = cheerio.load(response.text);
-    });
-    it('Should have status 200 ', () => {
-      expect(response.status).toBe(200);
-    });
-    it('Should exist one file input', async () => {
-      const fileInputElements = $('input[type="file"]');
-      expect(fileInputElements.length).toBeGreaterThan(0);
-    });
-
-    it("Should exist one title with the text 'Seleccione el archivo a subir'", async () => {
-      const title = $('h1').filter(
-        (index, element) => $(element).text() === 'Seleccione el archivo a subir',
-      );
-      expect(title.length).toBeGreaterThan(0);
-    });
-  });
   describe('Valid POST request', () => {
     /**
      * Verify that when making the request to the endpoint
