@@ -10,7 +10,7 @@
     "test": "clear && jest",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "dev": "nodemon ./src/bin/www"
+    "dev": "nodemon ./src/bin/www --ext js,json,ejs"
   },
   "dependencies": {
     "@testing-library/dom": "^9.3.1",
