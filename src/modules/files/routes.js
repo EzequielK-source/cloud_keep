@@ -1,6 +1,6 @@
 const path = require('path');
 const router = require('express').Router();
-const { saveFiles, saveFile } = require('./controller');
+const { saveAndPersistFiles } = require('./controller');
 const File = require('./schema');
 
 const storageVault = path.join(__dirname, '../../../storage_vault');
@@ -9,18 +9,19 @@ router
   .route('/upload')
   .post(async (req, res) => {
     /**
-     * Record and persist the sended files and
-     * redirect to files view
+     * Run the task saveAndPersistFiles and render the template explorer,
+     * if at least 1 file has not been sent,
+     * the template explorer is rendered with the error: 'no file was selected'
+     *
      */
-    if (!req.files || req.files.length < 1) {
-      return res.redirect('/explorer');
+    try {
+      await saveAndPersistFiles(req.files.archives, storageVault);
+      return res.redirect('/files/explorer');
+    } catch (err) {
+      return res.status(400).render('error', {
+        error: err,
+      });
     }
-    if ('length' in req.files.archives) {
-      await saveFiles(req.files, storageVault);
-    } else {
-      await saveFile(req.files, storageVault);
-    }
-    return res.redirect('/');
   });
 
 router.get('/explorer', async (req, res) => {
