@@ -35,7 +35,7 @@ describe('Upload file e2e test', () => {
     const filePath = path.join(`${__dirname}/../assets`, 'archivo_prueba.txt');
     const filePath2 = path.join(`${__dirname}/../assets`, 'archivo_prueba2.txt');
     const expectedStoragedFile = path.join(`${__dirname}/../../storage_vault`, 'archivo_prueba.txt');
-    it('Should redirect to home endpoint and status code 302', async () => {
+    it('Should redirect to home endpoint and status code 200', async () => {
       /**
        * Verify that after making the request the client
        * is redirected to the home route
@@ -45,7 +45,7 @@ describe('Upload file e2e test', () => {
         .attach('archives', filePath)
         .attach('archives', filePath2)
         .type('form');
-      return expect(response.statusCode).toBe(302);
+      return expect(response.statusCode).toBe(200);
     });
     it('Should record the file archivo_prueba.txt in storage_vaul dir', async () => {
       /**
@@ -65,7 +65,7 @@ describe('Upload file e2e test', () => {
         .attach('archives', filePath2)
         .type('form');
 
-      expect(response.statusCode).toBe(302);
+      expect(response.statusCode).toBe(200);
       await fs.access(expectedStoragedFile);
     });
     it('Should persist the file in database', async () => {
@@ -79,7 +79,7 @@ describe('Upload file e2e test', () => {
         .attach('archives', filePath2)
         .type('form');
 
-      expect(response.statusCode).toBe(302);
+      expect(response.statusCode).toBe(200);
       const archivos = await file.find();
       return expect(archivos.length).toBeGreaterThan(0);
     });
