@@ -33,8 +33,4 @@ router.get('/explorer', async (req, res) => {
   };
   return res.render('explorer_files', data);
 });
-// lists files route
-router.route('/')
-  .get((req, res) => res.send('home'));
-
 module.exports = router;
