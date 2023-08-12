@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <%- include('./partials/head.ejs'); %>
+  </head>
+  <body>
+    <header class="flex justify-center">
+      <%- include('./partials/navbar.ejs', {selected: "home"});  %>
+    </header>
+    <main>
+      <h1>Error</h1>
+      <%= error %>
+    </main>
+  </body>
+</html>
