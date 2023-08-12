@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 const request = require('supertest');
 const cheerio = require('cheerio');
 const app = require('../../src/app');
@@ -43,5 +44,9 @@ describe('Explore files e2e test', () => {
       const roleFilesListItem = $('[role="files-list-item"]');
       expect(roleFilesListItem.length).toBe(10);
     });
+  });
+
+  afterAll(async () => {
+    await mongoose.connection.close();
   });
 });

@@ -1,7 +1,7 @@
 const path = require('path');
 const fs = require('fs/promises');
+const mongoose = require('mongoose');
 const request = require('supertest');
-const cheerio = require('cheerio');
 const app = require('../../src/app');
 const file = require('../../src/modules/files/schema');
 const { deleteAllFiles } = require('../utils');
@@ -26,7 +26,7 @@ describe('Upload file e2e test', () => {
      * with the post method the record is created in the database
      * and it saves the file 'archivo_prueba.txt' in the folder
      */
-    afterEach(async () => {
+    beforeAll(async () => {
       /**
        * Delete all files record from database
        */
@@ -35,7 +35,7 @@ describe('Upload file e2e test', () => {
     const filePath = path.join(`${__dirname}/../assets`, 'archivo_prueba.txt');
     const filePath2 = path.join(`${__dirname}/../assets`, 'archivo_prueba2.txt');
     const expectedStoragedFile = path.join(`${__dirname}/../../storage_vault`, 'archivo_prueba.txt');
-    it('Should redirect to home endpoint and status code 200', async () => {
+    it('Should redirect to explorer page and have status code 302', async () => {
       /**
        * Verify that after making the request the client
        * is redirected to the home route
@@ -45,7 +45,7 @@ describe('Upload file e2e test', () => {
         .attach('archives', filePath)
         .attach('archives', filePath2)
         .type('form');
-      return expect(response.statusCode).toBe(200);
+      return expect(response.statusCode).toBe(302);
     });
     it('Should record the file archivo_prueba.txt in storage_vaul dir', async () => {
       /**
@@ -65,7 +65,7 @@ describe('Upload file e2e test', () => {
         .attach('archives', filePath2)
         .type('form');
 
-      expect(response.statusCode).toBe(200);
+      expect(response.statusCode).toBe(302);
       await fs.access(expectedStoragedFile);
     });
     it('Should persist the file in database', async () => {
@@ -79,9 +79,13 @@ describe('Upload file e2e test', () => {
         .attach('archives', filePath2)
         .type('form');
 
-      expect(response.statusCode).toBe(200);
+      expect(response.statusCode).toBe(302);
       const archivos = await file.find();
-      return expect(archivos.length).toBeGreaterThan(0);
+      return expect(archivos.length).toBe(1);
     });
+  });
+
+  afterAll(async () => {
+    await mongoose.connection.close();
   });
 });
