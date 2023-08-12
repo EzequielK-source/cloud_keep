@@ -26,26 +26,25 @@ describe('Upload file e2e test', () => {
      * with the post method the record is created in the database
      * and it saves the file 'archivo_prueba.txt' in the folder
      */
-    beforeAll(async () => {
-      /**
-       * Delete all files record from database
-       */
-      await deleteAllFiles();
-    });
+    let response;
     const filePath = path.join(`${__dirname}/../assets`, 'archivo_prueba.txt');
     const filePath2 = path.join(`${__dirname}/../assets`, 'archivo_prueba2.txt');
     const expectedStoragedFile = path.join(`${__dirname}/../../storage_vault`, 'archivo_prueba.txt');
-    it('Should redirect to explorer page and have status code 302', async () => {
-      /**
-       * Verify that after making the request the client
-       * is redirected to the home route
-       */
-      const response = await request(app)
+    beforeEach(async () => {
+      await deleteAllFiles();
+      response = await request(app)
         .post(ENDPOINT)
         .attach('archives', filePath)
         .attach('archives', filePath2)
         .type('form');
-      return expect(response.statusCode).toBe(302);
+    });
+    // eslint-disable-next-line arrow-body-style
+    it('Should redirect to explorer page and have status code 302', () => {
+      /**
+       * Verify that after making the request the client
+       * is redirected to the home route
+       */
+      expect(response.statusCode).toBe(302);
     });
     it('Should record the file archivo_prueba.txt in storage_vaul dir', async () => {
       /**
@@ -57,14 +56,7 @@ describe('Upload file e2e test', () => {
        * 2. the response statusCode should be 302
        * 3. Verifie if the file 'archivo_prueba.txt' can be accesed in the folder
        * storage_vault
-       */
-
-      const response = await request(app)
-        .post(ENDPOINT)
-        .attach('archives', filePath)
-        .attach('archives', filePath2)
-        .type('form');
-
+      */
       expect(response.statusCode).toBe(302);
       await fs.access(expectedStoragedFile);
     });
@@ -73,14 +65,8 @@ describe('Upload file e2e test', () => {
        *  Verify that after making the request to the endpoint,
        * the file and the path where it is persisted in the database
        */
-      const response = await request(app)
-        .post(ENDPOINT)
-        .attach('archives', filePath)
-        .attach('archives', filePath2)
-        .type('form');
-
       expect(response.statusCode).toBe(302);
-      const archivos = await file.find();
+      const archivos = await file.find({ absolutePath: expectedStoragedFile });
       return expect(archivos.length).toBe(1);
     });
   });
