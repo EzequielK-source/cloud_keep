@@ -8,14 +8,11 @@ const persistFileIfNotExist = async ({ absolutePath, device }) => {
    *
    */
   const existingFile = await File.findOne({ absolutePath });
-
   if (!existingFile) {
-    const newFile = new File({
+    await File.create({
       absolutePath,
       device,
     });
-
-    await newFile.save();
   }
 };
 const saveOneFile = async (archive, storageVault) => {
@@ -29,7 +26,7 @@ const saveOneFile = async (archive, storageVault) => {
    */
   const storagePath = path.join(storageVault, archive.name);
   const archiveToPersist = {
-    absolutePath: storageVault,
+    absolutePath: storagePath,
     device: 'mobile',
   };
   await archive.mv(storagePath);
