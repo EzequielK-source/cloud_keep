@@ -1,6 +1,23 @@
 const path = require('path');
 const File = require('./schema');
 
+const persistFileIfNotExist = async ({ absolutePath, device }) => {
+  /**
+   * Persist an File in the database if they absolutePath is
+   * not registered
+   *
+   */
+  const existingFile = await File.findOne({ absolutePath });
+
+  if (!existingFile) {
+    const newFile = new File({
+      absolutePath,
+      device,
+    });
+
+    await newFile.save();
+  }
+};
 const saveOneFile = async (archive, storageVault) => {
   /**
    * Save the file in the storage vault and persist it in the database
@@ -16,18 +33,18 @@ const saveOneFile = async (archive, storageVault) => {
     device: 'mobile',
   };
   await archive.mv(storagePath);
-  await File.create(archiveToPersist);
+  await persistFileIfNotExist(archiveToPersist);
 };
+
 const saveAllFilesInTheList = async (archiveList, storageVault) => {
   /**
    * Loop through the list of files using the saveOneFile function
    * @param archiveList - List of archives
    * @param storageVault - The absolute path to storage the file(s)
    */
-  const promises = [];
-  archiveList.forEach((archive) => promises.push(saveOneFile(archive, storageVault)));
-
-  await Promise.all(promises);
+  await Promise.all(
+    archiveList.map((archive) => saveOneFile(archive, storageVault)),
+  );
 };
 //
 const fileController = {};
